@@ -9,7 +9,6 @@ app.use(cors());
 
 const { db} = require('./models/database');
 /*
-const detailRouter = require('./routes/detail');
 app.use('/detail', detailRouter);
 app.use('/favourite', favouriteRouter);
 */

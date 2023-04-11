@@ -1,26 +1,19 @@
-category_entity = (sequelize, DataTypes) => {
-    const Category = sequelize.define(
+exports.category_entity = (sequelize, DataTypes) => {
+    const entity_obj = sequelize.define(
         'Category',
         {
-            idCategory: {
+            id: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
                 primaryKey: true,
                 autoIncrement: true,
             },
-            nameCategory: {
+            category_name: {
                 type: DataTypes.STRING,
                 allowNull: false,
                 primaryKey: true,
             }
-        },
-        {
-            timestamps: false,
         }
     );
-    return Category;
+    return entity_obj;
 };
-
-module.exports = {
-  category_entity
-}

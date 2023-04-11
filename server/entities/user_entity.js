@@ -1,8 +1,8 @@
-user_entity = (sequelize, DataTypes) => {
-  const User = sequelize.define(
+exports.user_entity = async (sequelize, DataTypes) => {
+  const entity_obj = await sequelize.define(
     'User',
     {
-      idUser: {
+      id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
@@ -21,17 +21,11 @@ user_entity = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      profile_photo_path: {
+      ava_url: {
         type: DataTypes.STRING,
         allowNull: true,
       },
-    },
-    {
-      timestamps: false,
     }
   );
-  return User;
+  return entity_obj;
 };
-module.exports = {
-  user_entity
-}

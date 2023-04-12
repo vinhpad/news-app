@@ -1,5 +1,5 @@
 const express = require('express')
-const { get_newspaper_by_category_name } = require('../controller/newspaper_controller')
+const { get_newspapers } = require('../controller/newspaper_controller')
 const router = express.Router();
-router.get('/:category_name',get_newspaper_by_category_name);
+router.get('/:nameCategory',get_newspapers);
 module.exports = router;

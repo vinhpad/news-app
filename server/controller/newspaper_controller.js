@@ -1,7 +1,7 @@
-const { find_by_category_name} = require('../service/newspaper_service')
+const { find_one } = require('../service/newspaper_service')
 
-exports.get_newspaper_by_category_name =async (request,result) => {
-  const category_name = request.params.category_name;
-  const data = await find_by_category_name(category_name)
+exports.get_newspapers =async (request,result) => {
+  const category_name = request.params.nameCategory;
+  const data = await find_one(category_name)
   result.json(data)
 }

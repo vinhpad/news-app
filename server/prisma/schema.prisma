@@ -1,0 +1,61 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Category {
+  categoryId   Int         @id @default(autoincrement())
+  nameCategory String      @unique
+  Newspaper    Newspaper[]
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  @@map("category")
+}
+
+model Favourite {
+  idFavourite Int  @id @default(autoincrement())
+  userId      Int
+  user        User @relation(fields: [userId], references: [userId])
+
+  newspaperId Int
+  newspaper   Newspaper @relation(fields: [newspaperId], references: [newspaperId])
+  cteatedAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@map("favourite")
+}
+
+model User {
+  userId     Int         @id @default(autoincrement())
+  email      String      @unique @db.VarChar(30)
+  username   String      @unique @db.VarChar(30)
+  password   String      @db.VarChar(30)
+  avaUrl     String?
+  cteatedAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  favourites Favourite[]
+
+  @@map("user")
+}
+
+model Newspaper {
+  newspaperId Int     @id @default(autoincrement())
+  title       String? @unique @db.VarChar(30)
+  description String? @db.VarChar(1000)
+  imageUrl    String?
+  content     String?
+  author      String?
+
+  nameCategory String
+  category     Category    @relation(fields: [nameCategory], references: [nameCategory])
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  Favourite    Favourite[]
+
+  @@map("newspaper")
+}

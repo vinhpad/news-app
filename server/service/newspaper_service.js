@@ -1,9 +1,9 @@
-const {newspaper_entity} = require('../models/database');
+const {newspaper_entity} = require('../prisma/database');
 
-exports.find_by_category_name = async (name_category) => {
-    const data = await newspaper_entity.findAll({
+exports.find_one = async (name_category) => {
+    const data = await newspaper_entity.findMany({
         where: {
-            category_name: name_category
+            nameCategory: name_category
         }
     })
     return data

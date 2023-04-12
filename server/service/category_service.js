@@ -1,7 +1,7 @@
-const { category_entity } = require('../models/database');
+const { category_entity } = require('../prisma/database');
 
-exports.find_all = async () => {
-  const data = await category_entity.findAll();
+exports.find_many = async () => {
+  const data = await category_entity.findMany();
   return data;
 };
 

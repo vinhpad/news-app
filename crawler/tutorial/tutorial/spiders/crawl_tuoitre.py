@@ -5,40 +5,30 @@ class TuoiTre(scrapy.Spider):
     allowed_domains = ['tuoitre.vn']
     start_urls = ['https://tuoitre.vn/']
     count = 0
+    datas = []
     def parse(self, response):
         if response.status == 200 and response.css('meta[property="og:type"]::attr("content")').get() == 'article':
-            f = open('data.txt', 'a', encoding='utf8')
-
-            Link = response.url
             data = {}
-
-            data["url"] = Link.strip()
-
-            date = response.css('div.detail-time').getall()
-            #data["date"] = date
-
-            title = response.css('h1.article-title::text').get()
-            data["title"] = title
+            title = response.css('div.detail-cate a::text').get()
+            data["title"] = title.strip()
 
             description = response.css('h2.detail-sapo::text').get()
-            data["description"] = description
+            data["description"] = description.strip()
 
-            for i in response.css('div.detail-content afcbc-body'):
-                print(i)
-                content = i.xpath('p.::text').getall()
-                #f.write(content.strip() + '\n')
-                print(content)
+            data['content'] = ''
+            for i in response.css('div.detail-content.afcbc-body p::text').getall():
+                data['content'] = data['content'] + i
 
+            data["image"] = response.css('div a img::attr(src)').extract()[6]
 
-
-            f.write('Tags:')
-            Tags = response.css('meta[property="article:tag"]::attr("content")').getall()
-            f.write(str(Tags).strip() + '\n')
-            f.write('\n')
+            data["author"] = response.css('div.author-info a::text').get()
+            print(data)
 
             self.count += 1
             self.crawler.stats.set_value('CRAWL COUNT', self.count)
-
+            #self.datas = self.datas.append(data)
+            #if self.count==100:
+                #print(self.datas)
         yield from response.follow_all(css='a[href^="https://tuoitre.vn/"]::attr(href), a[href^="/"]::attr(href)', callback=self.parse)
 
 

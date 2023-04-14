@@ -18,10 +18,9 @@ model Category {
 }
 
 model Favourite {
-  idFavourite Int  @id @default(autoincrement())
+  idFavourite Int       @id @default(autoincrement())
   userId      Int
-  user        User @relation(fields: [userId], references: [userId])
-
+  user        User      @relation(fields: [userId], references: [userId])
   newspaperId Int
   newspaper   Newspaper @relation(fields: [newspaperId], references: [newspaperId])
   cteatedAt   DateTime  @default(now())
@@ -32,8 +31,8 @@ model Favourite {
 
 model User {
   userId     Int         @id @default(autoincrement())
-  email      String      @unique @db.VarChar(30)
-  username   String      @unique @db.VarChar(30)
+  email      String      @unique
+  username   String      @unique
   password   String      @db.VarChar(30)
   avaUrl     String?
   cteatedAt  DateTime    @default(now())
@@ -44,16 +43,15 @@ model User {
 }
 
 model Newspaper {
-  newspaperId Int     @id @default(autoincrement())
-  title       String? @unique @db.VarChar(30)
-  description String? @db.VarChar(1000)
-  imageUrl    String?
-  content     String?
-  author      String?
-
+  newspaperId  Int         @id @default(autoincrement())
+  title        String?     @unique
+  description  String?
+  image        String?
+  content      String?
+  writer       String?
   nameCategory String
   category     Category    @relation(fields: [nameCategory], references: [nameCategory])
-  createdAt    DateTime    @default(now())
+  date         DateTime    @default(now())
   updatedAt    DateTime    @updatedAt
   Favourite    Favourite[]
 

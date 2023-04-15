@@ -3,7 +3,7 @@ const { favourite_entity, prisma } = require('../prisma/database');
 
 exports.create = async (idUser, idNewspaper) => {
   const data = await favourite_entity.create({
-    where: {
+    data: {
       idUser: idUser,
       idNewspaper: idNewspaper,
     },
@@ -44,29 +44,23 @@ exports.is_existed = async (idUser, idNewspaper) => {
   };
 };
 
-exports.execute_raw = async (sql) => {
-  try {
-    const data = await prisma.$executeRaw(sql);
-    return data;
-  } catch (error) {
-    console.log(error.message);
-  }
-};
+
 
 exports.execute_raw_get_newspaper_favourite_by_category = async (idUser, nameCategory) => {
-  const sql = `select * form favourite inner join newspaper on favourite.idNewspaper = newspaper.idNewspaper where favourite.idUser = ${idUser} and newspaper.nameCategory = ${nameCategory}`;
-  const data = await this.execute_raw(sql);
+  console.log(idUser,nameCategory," _1")
+  const data = await prisma.$queryRaw`select * from aBao.favourite inner join aBao.newspaper on aBao.favourite.idNewspaper = aBao.newspaper.idNewspaper where aBao.favourite.idUser = ${idUser} and aBao.newspaper.nameCategory = ${nameCategory};`;
   return data;
 };
 
 exports.execute_raw_get_newspapers = async (idUser) => {
-  const sql = `select * form favourite inner join newspaper on favourite.idNewspaper = newspaper.idNewspaper where favourite.idUser = ${idUser}`;
-  const data = await this.execute_raw(sql);
+  console.log(idUser," _2")
+  const data =await prisma.$queryRaw`select * from aBao.favourite inner join aBao.newspaper on aBao.favourite.idNewspaper = aBao.newspaper.idNewspaper where aBao.favourite.idUser = ${idUser};`;
   return data;
 };
 
 exports.execute_raw_get_category = async (idUser) => {
-  const sql = `select newspaper.nameCategory form favourite inner join newspaper on favourite.idNewspaper = newspaper.idNewspaper where favourite.idUser = ${idUser} group by newspaper.nameCategory`;
-  const data = await this.execute_raw(sql);
+  console.log(idUser," _3")
+  const data = await prisma.$queryRaw`select aBao.newspaper.nameCategory from aBao.favourite inner join aBao.newspaper on aBao.favourite.idNewspaper = aBao.newspaper.idNewspaper where aBao.favourite.idUser = ${idUser} group by nameCategory;`;
+  console.log(data)
   return data;
 };

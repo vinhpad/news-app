@@ -36,8 +36,9 @@ exports.create_user = async (email, username, password) => {
     const data = await user_entity.create({
         data: new_user
     })
+    console.log(data)
 
-    return data;
+    return 'SUCCESS';
 }
 
 exports.validate_login = async (email, password) => {

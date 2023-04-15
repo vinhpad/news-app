@@ -12,10 +12,10 @@ exports.find_unique_email = async (email) => {
     return data
 }
 
-exports.find_unique_id = async (userId) => {
+exports.find_unique_id = async (idUser) => {
     const data = await user_entity.findUnique({
         where: {
-            userId: userId
+            idUser: idUser
         }
     })
     return data
@@ -31,7 +31,7 @@ exports.create_user = async (email, username, password) => {
         email: email,
         username: username,
         password: password_hash,
-        avaUrl: AVA_DEFAULT
+        profile_photo_path: AVA_DEFAULT
     }
     const data = await user_entity.create({
         data: new_user
@@ -52,18 +52,18 @@ exports.validate_login = async (email, password) => {
     }
 
     const data = {
-        userId: user.userId,
+        idUser: user.idUser,
         username: user.username,
         email: user.email,
-        profile_photo_path: user.ava_url
+        profile_photo_path: user.profile_photo_path
     }
 
     const cookie = await create_cookie(data)
-    return cookie
+    return data
 }
 
-exports.update_password = async (userId, current_password, new_password) => {
-    const user = await this.find_unique_id(userId);
+exports.update_password = async (idUser, current_password, new_password) => {
+    const user = await this.find_unique_id(idUser);
     if (!user) {
         throw new Error("User not exist!")
     }
@@ -75,7 +75,7 @@ exports.update_password = async (userId, current_password, new_password) => {
     const new_password_hash = await hash_string(new_password, 10)
     const data = await user_entity.update({
         where: {
-            userId: userId,
+            idUser: idUser,
         },
         data: {
             password: new_password_hash
@@ -100,7 +100,7 @@ exports.update_profile = async (username, password, ava_url, id) => {
     }
     await user_entity.update({
         where: {
-            userId: id
+            idUser: id
         },
         update_user
     });

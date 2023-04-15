@@ -8,7 +8,7 @@ datasource db {
 }
 
 model Category {
-  categoryId   Int         @id @default(autoincrement())
+  idCategory   Int         @id @default(autoincrement())
   nameCategory String      @unique
   Newspaper    Newspaper[]
   createdAt    DateTime    @default(now())
@@ -18,11 +18,11 @@ model Category {
 }
 
 model Favourite {
-  favouriteId Int       @id @default(autoincrement())
-  userId      Int
-  user        User      @relation(fields: [userId], references: [userId])
-  newspaperId Int
-  newspaper   Newspaper @relation(fields: [newspaperId], references: [newspaperId])
+  idFavourite Int       @id @default(autoincrement())
+  idUser      Int
+  user        User      @relation(fields: [idUser], references: [idUser])
+  idNewspaper Int
+  newspaper   Newspaper @relation(fields: [idNewspaper], references: [idNewspaper])
   cteatedAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
@@ -30,20 +30,20 @@ model Favourite {
 }
 
 model User {
-  userId     Int         @id @default(autoincrement())
-  email      String      @unique
-  username   String      @unique
-  password   String
-  avaUrl     String?
-  cteatedAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
-  favourites Favourite[]
+  idUser             Int         @id @default(autoincrement())
+  email              String      @unique
+  username           String      @unique
+  password           String
+  profile_photo_path String?
+  cteatedAt          DateTime    @default(now())
+  updatedAt          DateTime    @updatedAt
+  favourites         Favourite[]
 
   @@map("user")
 }
 
 model Newspaper {
-  newspaperId  Int         @id @default(autoincrement())
+  idNewspaper  Int         @id @default(autoincrement())
   title        String?     @unique
   description  String?
   image        String?

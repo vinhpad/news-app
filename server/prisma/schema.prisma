@@ -18,7 +18,7 @@ model Category {
 }
 
 model Favourite {
-  idFavourite Int       @id @default(autoincrement())
+  favouriteId Int       @id @default(autoincrement())
   userId      Int
   user        User      @relation(fields: [userId], references: [userId])
   newspaperId Int
@@ -33,7 +33,7 @@ model User {
   userId     Int         @id @default(autoincrement())
   email      String      @unique
   username   String      @unique
-  password   String      @db.VarChar(30)
+  password   String
   avaUrl     String?
   cteatedAt  DateTime    @default(now())
   updatedAt  DateTime    @updatedAt

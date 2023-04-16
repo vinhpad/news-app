@@ -26,6 +26,7 @@ model Favourite {
   cteatedAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
+  @@unique([idUser, idNewspaper])
   @@map("favourite")
 }
 

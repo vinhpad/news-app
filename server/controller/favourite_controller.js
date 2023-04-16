@@ -22,7 +22,7 @@ exports.create_favourite = async (request, response) => {
 exports.delete_favourite = async (request, response) => {
   try {
     const { idUser, idNewspaper } = request.query;
-    const data = await remove(idUser, idNewspaper);
+    const data = await remove(parseInt(idUser),parseInt(idNewspaper));
     response.status(DEFAULT_STATUS).json(data);
   } catch (error) {
     response.status(DEFAULT_ERROR_STATUS).json({
@@ -35,7 +35,7 @@ exports.delete_favourite = async (request, response) => {
 exports.is_favourite = async (request, response) => {
   try {
     const { idUser, idNewspaper } = request.query;
-    const data = await is_existed(idUser, idNewspaper);
+    const data = await is_existed(parseInt(idUser), parseInt(idNewspaper));
     response.status(DEFAULT_STATUS).json(data);
   } catch (error) {
     response.status(DEFAULT_ERROR_STATUS).json({
@@ -48,7 +48,7 @@ exports.is_favourite = async (request, response) => {
 exports.get_newspapers_favourite = async (request, response) => {
   try {
     const { idUser } = request.params;
-    const data = await execute_raw_get_newspapers(idUser);
+    const data = await execute_raw_get_newspapers(parseInt(idUser));
     response.status(DEFAULT_STATUS).json(data);
   } catch (error) {
     response.status(DEFAULT_ERROR_STATUS).json({
@@ -61,7 +61,7 @@ exports.get_newspapers_favourite = async (request, response) => {
 exports.get_category_favourite = async (request, response) => {
   try {
     const { idUser } = request.params;
-    const data = await execute_raw_get_category(idUser);
+    const data = await execute_raw_get_category(parseInt(idUser));
     response.status(DEFAULT_STATUS).json(data);
   } catch (error) {
     response.status(DEFAULT_ERROR_STATUS).json({
@@ -74,7 +74,7 @@ exports.get_category_favourite = async (request, response) => {
 exports.get_newspapers_by_category = async (request, response) => {
   try {
     const { idUser, nameCategory } = request.query;
-    const data = await execute_raw_get_newspaper_favourite_by_category(idUser, nameCategory);
+    const data = await execute_raw_get_newspaper_favourite_by_category(parseInt(idUser), nameCategory);
     response.status(DEFAULT_STATUS).json(data);
   } catch (error) {
     response.status(DEFAULT_ERROR_STATUS).json({

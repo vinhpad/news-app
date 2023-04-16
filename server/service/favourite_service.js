@@ -2,6 +2,10 @@ const { find_unique_id } = require('./user_service');
 const { favourite_entity, prisma } = require('../prisma/database');
 
 exports.create = async (idUser, idNewspaper) => {
+  const existed = await this.is_existed(idUser,idNewspaper)
+  if(existed.favourite == true) {
+    return null;
+  }
   const data = await favourite_entity.create({
     data: {
       idUser: idUser,
@@ -14,8 +18,10 @@ exports.create = async (idUser, idNewspaper) => {
 exports.remove = async (idUser, idNewspaper) => {
   const data = await favourite_entity.delete({
     where: {
-      idUser: idUser,
-      idNewspaper: idNewspaper,
+      idUser_idNewspaper : {
+        idUser: idUser,
+        idNewspaper: idNewspaper,
+      }
     },
   });
   return data;
@@ -25,14 +31,16 @@ exports.remove = async (idUser, idNewspaper) => {
 exports.find_unique = async (idUser, idNewspaper) => {
   const data = await favourite_entity.findUnique({
     where: {
-      idUser: idUser,
-      idNewspaper: idNewspaper,
+      idUser_idNewspaper : {
+        idUser: idUser,
+        idNewspaper: idNewspaper,
+      }
     },
   });
   return data;
 };
 
-exports.is_existed = async (idUser, idNewspaper) => {
+exports.is_existed = async ( idUser, idNewspaper) => {
   const favourite = await this.find_unique(idUser, idNewspaper);
   if (favourite) {
     return {

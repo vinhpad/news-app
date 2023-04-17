@@ -21,7 +21,10 @@ const category_seeder = async () => {
       { nameCategory : "Nhà đất" },
       { nameCategory : "Sức khỏe" },
       { nameCategory : "Giả thật" },
-      { nameCategory : "Bạn đọc" }
+      { nameCategory : "Bạn đọc làm báo" },
+      { nameCategory: "Cần biết"},
+      { nameCategory: "Thư giãn"},
+      { nameCategory: "Việc làm"},
     ],
     skipDuplicates: true
   })

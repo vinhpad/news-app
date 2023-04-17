@@ -48,7 +48,7 @@ model Newspaper {
   title        String?     @unique
   description  String?
   image        String?
-  content      String?
+  content      String?     @db.LongText
   writer       String?
   nameCategory String
   category     Category    @relation(fields: [nameCategory], references: [nameCategory])

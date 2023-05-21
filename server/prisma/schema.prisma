@@ -58,3 +58,10 @@ model Newspaper {
 
   @@map("newspaper")
 }
+
+model Notification {
+  idNotification Int     @id @default(autoincrement())
+  title          String?
+  description    String?
+  @@map("notification")
+}

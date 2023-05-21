@@ -52,6 +52,15 @@ CREATE TABLE `newspaper` (
     PRIMARY KEY (`idNewspaper`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
+-- CreateTable
+CREATE TABLE `notification` (
+    `idNotification` INTEGER NOT NULL AUTO_INCREMENT,
+    `title` VARCHAR(191) NULL,
+    `description` VARCHAR(191) NULL,
+
+    PRIMARY KEY (`idNotification`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
 -- AddForeignKey
 ALTER TABLE `favourite` ADD CONSTRAINT `favourite_idUser_fkey` FOREIGN KEY (`idUser`) REFERENCES `user`(`idUser`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
